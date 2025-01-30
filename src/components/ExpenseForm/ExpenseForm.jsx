@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = () => {
+const ExpenseForm = ({expenses, setExpenses}) => {
     const [ name, setName ] = useState('');
     const [ value, setValue ] = useState('');
     const [ option, setOption ] = useState('');
-    const [ expenses, setExpenses ] = useState([]);
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -14,7 +13,7 @@ const ExpenseForm = () => {
     }; 
 
     console.log(expenses)
-    
+
     return (
         <>
       <form onSubmit={handleSubmit}>
