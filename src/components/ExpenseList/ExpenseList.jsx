@@ -1,4 +1,5 @@
 import React from 'react';
+import './ExpenseList.css';
 
 const ExpenseList = ({ expenses, setExpenses }) => {
     const handleRemove = (indexToRemove) => {
