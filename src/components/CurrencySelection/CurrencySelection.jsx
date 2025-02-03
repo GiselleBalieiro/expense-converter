@@ -4,36 +4,23 @@ import './CurrencySelection.css';
 const API_KEY = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
 const BASE_URL = "https://v6.exchangerate-api.com/v6";
 
-const CurrencySelection = ({ setDestinationCurrency, setExchangeRates }) => {
+const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates }) => {
+  const [fromCurrency, setFromCurrency] = useState("USD");
   const [toCurrency, setToCurrency] = useState("");
-  const [ totalConverted, setTotalConverted ] = useState("");
-
-  const calculateConvertedTotal = ({ expenses, exchangeRate }) => {
-    if (!exchangeRate) {
-      return "Não há taxa de conversão, por favor, selecione outra";
-    }
-  
-    const convertedExpenses = expenses.map((expense) => {
-      if (expense.option) {
-        return expense.value * exchangeRate;
-      } else {
-        return "Não há taxa de conversão, por favor, selecione outra";
-      }
-    });
-  
-    return convertedExpenses;
-  };
-  
+  const [totalConverted, setTotalConverted] = useState([]);
 
   useEffect(() => {
     async function fetchExchangeRates() {
       try {
-        const response = await fetch(`${BASE_URL}/${API_KEY}/latest/${toCurrency}`);
+        const response = await fetch(`${BASE_URL}/${API_KEY}/latest/${fromCurrency}`);
         const data = await response.json();
 
+        console.log(data)
+        console.log("Moeda selecionada: ", fromCurrency)
+
         if (data.conversion_rates) {
-          setExchangeRates(data.conversion_rates); 
-          setDestinationCurrency(toCurrency); 
+          setExchangeRates(data.conversion_rates);
+          setDestinationCurrency(toCurrency);
         } else {
           throw new Error("Erro ao buscar taxas.");
         }
@@ -43,8 +30,43 @@ const CurrencySelection = ({ setDestinationCurrency, setExchangeRates }) => {
       }
     }
 
-    fetchExchangeRates();
+    if (toCurrency) {
+      fetchExchangeRates();
+    }
   }, [toCurrency, setExchangeRates, setDestinationCurrency]);
+
+
+  useEffect(() => {
+    console.log("Taxas de câmbio atualizadas:", exchangeRates);
+  }, [exchangeRates]);
+  
+
+  const calculateConvertedTotal = () => {
+
+    if (expenses.length === 0) {
+      return "Por favor, adicione uma despesa antes de calcular a conversão.";
+    }
+
+    const fromExchangeRate = exchangeRates[fromCurrency];
+    const toExchangeRate = exchangeRates[toCurrency];
+    
+    if (!fromExchangeRate || !toExchangeRate) {
+      alert("Não há taxa de conversão para uma das moedas selecionadas.");
+      return;
+    }
+
+    const convertedExpenses = expenses.map((expense) => {
+      if (expense.option) {
+        const convertedValue = (expense.value * toExchangeRate) / fromExchangeRate; 
+        console.log(`Convertendo despesa: ${expense.value} de ${fromCurrency} para ${toCurrency}: ${convertedValue}`);
+        return convertedValue;
+      }
+      return "Não há taxa de conversão, por favor, selecione outra";
+    });
+
+    console.log("Despesas convertidas:", convertedExpenses);
+    setTotalConverted(convertedExpenses);
+  };
 
   return (
     <div>
@@ -54,7 +76,8 @@ const CurrencySelection = ({ setDestinationCurrency, setExchangeRates }) => {
         <option value="BRL">Real</option>
         <option value="EUR">Euro</option>
       </select>
-      <button onClick={() => console.log(calculateConvertedTotal({ expenses: [{ value: 100, option: true }], exchangeRate: 5 }))}>Converter</button>
+      <button onClick={calculateConvertedTotal}>Converter</button>
+      <p>O valor convertido é: {totalConverted.length ? totalConverted.join(', ') : "Ainda não convertido"}</p>
     </div>
   );
 };

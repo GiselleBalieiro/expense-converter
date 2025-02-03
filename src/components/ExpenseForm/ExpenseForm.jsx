@@ -10,7 +10,9 @@ const ExpenseForm = ({ expenses, setExpenses }) => {
       event.preventDefault();
       const newExpense = { name, value, option };
       setExpenses([...expenses, newExpense]);
-
+      setName("");
+      setValue("");
+      setOption(false);
 
     }; 
 

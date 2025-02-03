@@ -23,6 +23,8 @@ function App() {
       setExpenses={setExpenses} 
     />
     <CurrencySelection
+      expenses={expenses}
+      exchangeRates={exchangeRates}
       setDestinationCurrency={setDestinationCurrency}
       setExchangeRates={setExchangeRates}
     />
