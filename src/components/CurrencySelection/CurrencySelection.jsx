@@ -4,10 +4,9 @@ import './CurrencySelection.css';
 const API_KEY = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
 const BASE_URL = "https://v6.exchangerate-api.com/v6";
 
-const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates }) => {
-  const [fromCurrency, setFromCurrency] = useState("USD");
+const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency }) => {
   const [toCurrency, setToCurrency] = useState("");
-  const [totalConverted, setTotalConverted] = useState([]);
+  const [totalConverted, setTotalConverted] = useState("");
 
   useEffect(() => {
     async function fetchExchangeRates() {
@@ -17,6 +16,8 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
 
         console.log(data)
         console.log("Moeda selecionada: ", fromCurrency)
+        console.log("fromCurrency:", fromCurrency);
+        console.log("toCurrency:", toCurrency);
 
         if (data.conversion_rates) {
           setExchangeRates(data.conversion_rates);
@@ -56,12 +57,12 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
     }
 
     const convertedExpenses = expenses.map((expense) => {
-      if (expense.option) {
-        const convertedValue = (expense.value * toExchangeRate) / fromExchangeRate; 
-        console.log(`Convertendo despesa: ${expense.value} de ${fromCurrency} para ${toCurrency}: ${convertedValue}`);
-        return convertedValue;
+      if (expense.option === fromCurrency) {
+        const convertedValue = (expense.value / fromExchangeRate) * toExchangeRate;
+        console.log(`Convertendo ${expense.value} de ${fromCurrency} para ${toCurrency}: ${convertedValue}`);
+        return convertedValue.toFixed(2); 
       }
-      return "Não há taxa de conversão, por favor, selecione outra";
+      return "Erro na conversão";
     });
 
     console.log("Despesas convertidas:", convertedExpenses);

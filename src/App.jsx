@@ -7,13 +7,15 @@ import CurrencySelection from './components/CurrencySelection/CurrencySelection'
 function App() {
   const [ expenses, setExpenses ] = useState([]);
   const [ destinationCurrency, setDestinationCurrency ] = useState ("");
-  const [ exchangeRates, setExchangeRates ] = useState ("");
+  const [ exchangeRates, setExchangeRates ] = useState ({});
+  const [ selectedCurrency, setSelectedCurrency ] = useState ('')
 
 
   return (
     <>
     <ExpenseForm 
       expenses={expenses} 
+      setSelectedCurrency={setSelectedCurrency}
       setExpenses={setExpenses}
       destinationCurrency={destinationCurrency}
       exchangeRates={exchangeRates}
@@ -27,6 +29,7 @@ function App() {
       exchangeRates={exchangeRates}
       setDestinationCurrency={setDestinationCurrency}
       setExchangeRates={setExchangeRates}
+      fromCurrency={selectedCurrency}
     />
     </>
   )

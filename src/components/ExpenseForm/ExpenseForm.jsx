@@ -1,19 +1,19 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = ({ expenses, setExpenses }) => {
+const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency }) => {
     const [ name, setName ] = useState('');
     const [ value, setValue ] = useState('');
     const [ option, setOption ] = useState('');
 
     const handleSubmit = (event) => {
       event.preventDefault();
-      const newExpense = { name, value, option };
+      const newExpense = { name, value: parseFloat(value), option };
       setExpenses([...expenses, newExpense]);
       setName("");
       setValue("");
-      setOption(false);
-
+      setOption("");
+      setSelectedCurrency(option)
     }; 
 
     console.log(expenses)
@@ -43,9 +43,10 @@ const ExpenseForm = ({ expenses, setExpenses }) => {
         <select 
           id='option' 
           name='option' 
+          value={option}
           onChange={(event) => 
             setOption(event.target.value)}>       
-            <option value=''>Selecione</option>
+            <option value="">Selecione</option>
             <option value='BRL'>Real</option>
             <option value='USD'>Dólar</option>
             <option value='EUR'>Euro</option> 
