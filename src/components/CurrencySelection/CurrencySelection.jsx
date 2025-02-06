@@ -6,7 +6,7 @@ const BASE_URL = "https://v6.exchangerate-api.com/v6";
 
 const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency }) => {
   const [toCurrency, setToCurrency] = useState("");
-  const [totalConverted, setTotalConverted] = useState("");
+  const [totalConverted, setTotalConverted] = useState([]);
 
   useEffect(() => {
     async function fetchExchangeRates() {
@@ -30,7 +30,6 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
         setExchangeRates({});
       }
     }
-
     if (toCurrency) {
       fetchExchangeRates();
     }
@@ -43,18 +42,12 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
   
 
   const calculateConvertedTotal = () => {
-
     if (expenses.length === 0) {
       return "Por favor, adicione uma despesa antes de calcular a conversão.";
     }
-
+    
     const fromExchangeRate = exchangeRates[fromCurrency];
     const toExchangeRate = exchangeRates[toCurrency];
-    
-    if (!fromExchangeRate || !toExchangeRate) {
-      alert("Não há taxa de conversão para uma das moedas selecionadas.");
-      return;
-    }
 
     const convertedExpenses = expenses.map((expense) => {
       if (expense.option === fromCurrency) {
@@ -67,18 +60,34 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
 
     console.log("Despesas convertidas:", convertedExpenses);
     setTotalConverted(convertedExpenses);
+    console.log("totalConverted", totalConverted);
   };
+
+
+  const calculateTotalDestinationCurrency = () => {
+
+  }
+  
 
   return (
     <div>
       <label>para: </label>
       <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+        <option value="" disabled>Selecione</option>
         <option value="USD">Dólar</option>
         <option value="BRL">Real</option>
         <option value="EUR">Euro</option>
       </select>
       <button onClick={calculateConvertedTotal}>Converter</button>
-      <p>O valor convertido é: {totalConverted.length ? totalConverted.join(', ') : "Ainda não convertido"}</p>
+     
+      <ul>
+        {totalConverted.map((converted, index) => (
+        <li key={index}>
+        <p>O valor convertido é: {converted}</p>
+        </li>
+        ))}
+      </ul>
+      <h1>O total é: </h1>
     </div>
   );
 };
