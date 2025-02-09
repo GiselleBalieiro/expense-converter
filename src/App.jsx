@@ -4,6 +4,7 @@ import ExpenseForm from './components/ExpenseForm/ExpenseForm'
 import ExpenseList from './components/ExpenseList/ExpenseList'
 import CurrencySelection from './components/CurrencySelection/CurrencySelection';
 import Button from './components/Button/Button';
+import PopUp from './components/PopUp/PopUp';
 
 function App() {
   const [ expenses, setExpenses ] = useState([]);
@@ -18,14 +19,18 @@ function App() {
       showForm={showForm} 
       setShowForm={setShowForm}
     />
-
-    {showForm && <ExpenseForm 
-      expenses={expenses} 
-      setSelectedCurrency={setSelectedCurrency}
-      setExpenses={setExpenses}
-      destinationCurrency={destinationCurrency}
-      exchangeRates={exchangeRates}
-    />}
+    
+    {showForm && ( <PopUp setShowForm={setShowForm}>  
+      <ExpenseForm 
+        expenses={expenses} 
+        setSelectedCurrency={setSelectedCurrency}
+        setExpenses={setExpenses}
+        destinationCurrency={destinationCurrency}
+        exchangeRates={exchangeRates}
+        setShowForm={setShowForm}
+      />
+    </PopUp>
+    )} 
 
     <ExpenseList 
       expenses={expenses} 

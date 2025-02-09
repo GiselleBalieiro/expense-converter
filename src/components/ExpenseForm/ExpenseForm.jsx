@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ExpenseForm.css';
 
-const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency }) => {
+const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency, setShowForm }) => {
     const [ name, setName ] = useState('');
     const [ value, setValue ] = useState('');
     const [ option, setOption ] = useState('');
@@ -14,6 +14,7 @@ const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency }) => {
       setValue("");
       setOption("");
       setSelectedCurrency(option)
+      setShowForm(false)
     }; 
 
     console.log(expenses)
