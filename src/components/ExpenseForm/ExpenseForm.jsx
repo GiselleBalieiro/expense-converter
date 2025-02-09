@@ -21,9 +21,9 @@ const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency, setShowForm }
 
     return (
         <>
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="name">Nome da despesa: </label>
-        <input 
+      <form className="expense-form" onSubmit={handleSubmit}>
+        <label className="label-submit" htmlFor="name">Nome da despesa: </label>
+        <input className='input-submit' required
         type="text" 
         id="name" 
         name="name"
@@ -31,8 +31,8 @@ const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency, setShowForm }
         onChange={(event) => 
           setName(event.target.value)}/>
         
-        <label htmlFor="value">Valor: </label>
-        <input 
+        <label className="label-submit" htmlFor="value">Valor: </label>
+        <input className='input-submit' required
           type="number" 
           id="value" 
           name="value"
@@ -40,8 +40,8 @@ const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency, setShowForm }
           onChange={(event) => 
             setValue(event.target.value)}/>
 
-        <label htmlFor="option">Moeda da despesa: </label>
-        <select 
+        <label className="label-submit" htmlFor="option">Moeda da despesa: </label>
+        <select className="select-submit" required
           id='option' 
           name='option' 
           value={option}
@@ -52,7 +52,7 @@ const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency, setShowForm }
             <option value='USD'>Dólar</option>
             <option value='EUR'>Euro</option> 
         </select>
-          <button type='submit'>Adicionar despesa</button>
+          <button className="button-submit" type='submit'>Adicionar despesa</button>
       </form> 
         </>
     );

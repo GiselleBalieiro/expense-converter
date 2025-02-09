@@ -3,23 +3,40 @@ import './ExpenseList.css';
 
 const ExpenseList = ({ expenses, setExpenses }) => {
     const handleRemove = (indexToRemove) => {
-            setExpenses(expenses.filter((_, index) => index !== indexToRemove));
-        }
-        
+        setExpenses(expenses.filter((_, index) => index !== indexToRemove));
+    };
+
     return (
-        <>
-        <ul>
-            {expenses.map((expense, index) => (
-            <li key={index}>
-                <p>{expense.name}</p>
-                <p>{expense.value}</p>
-                <p>{expense.option}</p>
-                <button onClick={() => handleRemove(index)}>Remover</button>
-            </li>
-        ))}
-        </ul>
-        </>
-    )
-}
+        <div className="container">
+            <table className="table">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Categoria</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {expenses.map((expense, index) => (
+                        <tr key={index}>
+                            <td>{expense.name}</td>
+                            <td>{expense.value}</td>
+                            <td>{expense.option}</td>
+                            <td>
+                                <button
+                                    className="remove-button"
+                                    onClick={() => handleRemove(index)}
+                                >
+                                    Remover
+                                </button>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
+        </div>
+    );
+};
 
 export default ExpenseList;
