@@ -42,6 +42,7 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
   
 
   const calculateConvertedTotal = () => {
+    event.preventDefault()
     if (expenses.length === 0) {
       return "Por favor, adicione uma despesa antes de calcular a conversão.";
     }
@@ -63,22 +64,22 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
     console.log("totalConverted", totalConverted);
   };
 
-
-  const calculateTotalDestinationCurrency = () => {
-
-  }
   
 
   return (
     <div>
-      <label>para: </label>
-      <select value={toCurrency} onChange={(e) => setToCurrency(e.target.value)}>
+      <form className='form-converted'>
+      <label className='label-converted'>Converter despesas para: </label>
+      <select className="select-submit" required 
+      value={toCurrency} 
+      onChange={(e) => setToCurrency(e.target.value)}>
         <option value="" disabled>Selecione</option>
         <option value="USD">Dólar</option>
         <option value="BRL">Real</option>
         <option value="EUR">Euro</option>
       </select>
       <button onClick={calculateConvertedTotal}>Converter</button>
+      </form>
      
       <ul>
         {totalConverted.map((converted, index) => (

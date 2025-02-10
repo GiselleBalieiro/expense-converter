@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './ExpenseList.css';
+import CurrencyButton from '../../CurrencyButton/CurrencyButton';
 
-const ExpenseList = ({ expenses, setExpenses }) => {
+const ExpenseList = ({ expenses, setExpenses, exchangeRates, setDestinationCurrency, setExchangeRates, selectedCurrency}) => {
+    const [showCurrencySelection, setShowCurrencySelection] = useState(false);
+
     const handleRemove = (indexToRemove) => {
         setExpenses(expenses.filter((_, index) => index !== indexToRemove));
     };
@@ -23,13 +26,22 @@ const ExpenseList = ({ expenses, setExpenses }) => {
                             <td>{expense.name}</td>
                             <td>{expense.value}</td>
                             <td>{expense.option}</td>
-                            <td>
+                            <td className="buttons">
                                 <button
                                     className="remove-button"
                                     onClick={() => handleRemove(index)}
                                 >
                                     Remover
                                 </button>
+                                <CurrencyButton className="convert-button"
+                                    showCurrencySelection={showCurrencySelection}
+                                    setShowCurrencySelection={setShowCurrencySelection}
+                                    fromCurrency={selectedCurrency}
+                                    expenses={expenses}
+                                    exchangeRates={exchangeRates}
+                                    setDestinationCurrency={setDestinationCurrency}
+                                    setExchangeRates={setExchangeRates}
+                                />
                             </td>
                         </tr>
                     ))}

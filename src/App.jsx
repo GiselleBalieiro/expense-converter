@@ -5,6 +5,7 @@ import CurrencySelection from './components/CurrencySelection/CurrencySelection'
 import Button from './components/Button/Button';
 import PopUp from './components/PopUp/PopUp';
 import Background from './components/Background/Background';
+import CurrencyButton from './CurrencyButton/CurrencyButton';
 
 function App() {
   const [ expenses, setExpenses ] = useState([]);
@@ -36,15 +37,13 @@ function App() {
       <ExpenseList 
         expenses={expenses} 
         setExpenses={setExpenses} 
-      />
-
-      <CurrencySelection
-        expenses={expenses}
         exchangeRates={exchangeRates}
         setDestinationCurrency={setDestinationCurrency}
         setExchangeRates={setExchangeRates}
+        selectedCurrency={selectedCurrency}
         fromCurrency={selectedCurrency}
       />
+      
     </Background>
     </>
   )

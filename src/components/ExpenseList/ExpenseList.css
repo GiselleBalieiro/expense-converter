@@ -54,3 +54,13 @@
   background: #e04e4e;
   transform: scale(1.05);
 }
+
+.buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.convert-button:hover {
+  transform: scale(1.05);
+}
+
