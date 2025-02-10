@@ -11,9 +11,9 @@ const ExpenseList = ({ expenses, setExpenses }) => {
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Nome</th>
+                        <th>Despesa</th>
                         <th>Valor</th>
-                        <th>Categoria</th>
+                        <th>Moeda</th>
                         <th>Ações</th>
                     </tr>
                 </thead>

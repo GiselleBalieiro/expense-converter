@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import './App.css'
 import ExpenseForm from './components/ExpenseForm/ExpenseForm'
 import ExpenseList from './components/ExpenseList/ExpenseList'
 import CurrencySelection from './components/CurrencySelection/CurrencySelection';
 import Button from './components/Button/Button';
 import PopUp from './components/PopUp/PopUp';
+import Background from './components/Background/Background';
 
 function App() {
   const [ expenses, setExpenses ] = useState([]);
@@ -15,35 +15,37 @@ function App() {
  
   return (
     <>
-    <Button 
-      showForm={showForm} 
-      setShowForm={setShowForm}
-    />
-    
-    {showForm && ( <PopUp setShowForm={setShowForm}>  
-      <ExpenseForm 
-        expenses={expenses} 
-        setSelectedCurrency={setSelectedCurrency}
-        setExpenses={setExpenses}
-        destinationCurrency={destinationCurrency}
-        exchangeRates={exchangeRates}
+    <Background>
+      <Button 
+        showForm={showForm} 
         setShowForm={setShowForm}
       />
-    </PopUp>
-    )} 
+      
+      {showForm && ( <PopUp setShowForm={setShowForm}>  
+        <ExpenseForm 
+          expenses={expenses} 
+          setSelectedCurrency={setSelectedCurrency}
+          setExpenses={setExpenses}
+          destinationCurrency={destinationCurrency}
+          exchangeRates={exchangeRates}
+          setShowForm={setShowForm}
+        />
+      </PopUp>
+      )} 
 
-    <ExpenseList 
-      expenses={expenses} 
-      setExpenses={setExpenses} 
-    />
+      <ExpenseList 
+        expenses={expenses} 
+        setExpenses={setExpenses} 
+      />
 
-    <CurrencySelection
-      expenses={expenses}
-      exchangeRates={exchangeRates}
-      setDestinationCurrency={setDestinationCurrency}
-      setExchangeRates={setExchangeRates}
-      fromCurrency={selectedCurrency}
-    />
+      <CurrencySelection
+        expenses={expenses}
+        exchangeRates={exchangeRates}
+        setDestinationCurrency={setDestinationCurrency}
+        setExchangeRates={setExchangeRates}
+        fromCurrency={selectedCurrency}
+      />
+    </Background>
     </>
   )
 }

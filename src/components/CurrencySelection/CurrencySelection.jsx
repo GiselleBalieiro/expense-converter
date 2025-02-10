@@ -87,7 +87,7 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
         </li>
         ))}
       </ul>
-      <h1>O total é: </h1>
+   
     </div>
   );
 };

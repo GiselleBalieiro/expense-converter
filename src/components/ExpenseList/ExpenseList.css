@@ -1,30 +1,37 @@
 .container {
+  background-color: #ffffff;
   max-width: 900px;
   margin: 20px auto;
   padding: 20px;
   background: #f8f9fa;
   border-radius: 12px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.08);
 }
 
 .table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate;
+  border-spacing: 0 8px;
   font-family: 'Arial', sans-serif;
 }
 
 .table th {
+  text-align: center !important;
+  vertical-align: middle;
   text-align: left;
-  padding: 12px 16px;
+  padding: 14px 16px;
   background: #f1f3f5;
   color: #555;
   font-weight: bold;
-  border-bottom: 2px solid #e0e0e0;
+  border: none;
 }
 
 .table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid #e9ecef;
+  text-align: center; 
+  vertical-align: middle;
+  padding: 14px 16px;
+  background: #ffffff;
+  border: none;
   color: #333;
 }
 
@@ -45,4 +52,5 @@
 
 .remove-button:hover {
   background: #e04e4e;
+  transform: scale(1.05);
 }
