@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import CurrencySelection from "../components/CurrencySelection/CurrencySelection";
-import PopUp from "../components/PopUp/PopUp";
+import CurrencySelection from "../CurrencySelection/CurrencySelection";
+import PopUp from "../PopUp/PopUp";
 
 const CurrencyButton = ({  expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency }) => {
     const [showCurrencySelection, setShowCurrencySelection] = useState (false);

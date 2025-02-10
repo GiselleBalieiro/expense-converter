@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ExpenseList.css';
-import CurrencyButton from '../../CurrencyButton/CurrencyButton';
+import CurrencyButton from '../CurrencyButton/CurrencyButton';
 
 const ExpenseList = ({ expenses, setExpenses, exchangeRates, setDestinationCurrency, setExchangeRates, selectedCurrency}) => {
     const [showCurrencySelection, setShowCurrencySelection] = useState(false);
