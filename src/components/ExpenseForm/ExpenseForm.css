@@ -14,13 +14,23 @@
   margin-bottom: 5px;
 }
 
-.input-submit, .select-submit {
-  padding: 8px;
+.input-submit, 
+.select-submit {
+  width: 100%;
+  max-width: 100%; 
+  padding: 8px; 
   border: 1px solid #ccc;
   border-radius: 5px;
   font-size: 1rem;
   background-color: #DEE2E6;
-  border: #DEE2E6;
+  box-sizing: border-box; 
+}
+
+.input-submit:focus, 
+.select-submit:focus {
+  outline: none; 
+  border-color: #6c63ff;
+  box-shadow: 0 0 4px rgba(108, 99, 255, 0.5); 
 }
 
 .button-submit {

@@ -47,7 +47,7 @@ const ExpenseForm = ({ expenses, setExpenses, setSelectedCurrency, setShowForm }
           value={option}
           onChange={(event) => 
             setOption(event.target.value)}>       
-            <option value="">Selecione</option>
+            <option value="" disabled >Selecione</option>
             <option value='BRL'>Real</option>
             <option value='USD'>Dólar</option>
             <option value='EUR'>Euro</option> 
