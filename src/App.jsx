@@ -1,11 +1,10 @@
 import { useState } from 'react';
 import ExpenseForm from './components/ExpenseForm/ExpenseForm'
 import ExpenseList from './components/ExpenseList/ExpenseList'
-import CurrencySelection from './components/CurrencySelection/CurrencySelection';
 import Button from './components/Button/Button';
 import PopUp from './components/PopUp/PopUp';
 import Background from './components/Background/Background';
-import CurrencyButton from './CurrencyButton/CurrencyButton';
+
 
 function App() {
   const [ expenses, setExpenses ] = useState([]);

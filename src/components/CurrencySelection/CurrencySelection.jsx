@@ -4,9 +4,8 @@ import './CurrencySelection.css';
 const API_KEY = import.meta.env.VITE_EXCHANGE_RATE_API_KEY;
 const BASE_URL = "https://v6.exchangerate-api.com/v6";
 
-const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency }) => {
+const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency, onConversion }) => {
   const [toCurrency, setToCurrency] = useState("");
-  const [totalConverted, setTotalConverted] = useState([]);
 
   useEffect(() => {
     async function fetchExchangeRates() {
@@ -33,7 +32,7 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
     if (toCurrency) {
       fetchExchangeRates();
     }
-  }, [toCurrency, setExchangeRates, setDestinationCurrency]);
+  }, [toCurrency, setExchangeRates, setDestinationCurrency, fromCurrency]);
 
 
   useEffect(() => {
@@ -42,7 +41,6 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
   
 
   const calculateConvertedTotal = () => {
-    event.preventDefault()
     if (expenses.length === 0) {
       return "Por favor, adicione uma despesa antes de calcular a conversão.";
     }
@@ -54,41 +52,33 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
       if (expense.option === fromCurrency) {
         const convertedValue = (expense.value / fromExchangeRate) * toExchangeRate;
         console.log(`Convertendo ${expense.value} de ${fromCurrency} para ${toCurrency}: ${convertedValue}`);
-        return convertedValue.toFixed(2); 
+        return {
+          ...expense,
+          convertedValue: convertedValue.toFixed(2),
+          conversionCurrency: toCurrency
+        };
       }
-      return "Erro na conversão";
+      return expense;
     });
 
     console.log("Despesas convertidas:", convertedExpenses);
-    setTotalConverted(convertedExpenses);
-    console.log("totalConverted", totalConverted);
+    onConversion(convertedExpenses);
   };
-
-  
 
   return (
     <div>
-      <form className='form-converted'>
+      <form className='form-converted' onSubmit={calculateConvertedTotal}>
       <label className='label-converted'>Converter despesas para: </label>
       <select className="select-submit" required 
-      value={toCurrency} 
-      onChange={(e) => setToCurrency(e.target.value)}>
+        value={toCurrency} 
+        onChange={(e) => setToCurrency(e.target.value)}>
         <option value="" disabled>Selecione</option>
         <option value="USD">Dólar</option>
         <option value="BRL">Real</option>
         <option value="EUR">Euro</option>
       </select>
-      <button onClick={calculateConvertedTotal}>Converter</button>
-      </form>
-     
-      <ul>
-        {totalConverted.map((converted, index) => (
-        <li key={index}>
-        <p>O valor convertido é: {converted}</p>
-        </li>
-        ))}
-      </ul>
-   
+      <button type='submit'>Converter</button>
+      </form>   
     </div>
   );
 };
