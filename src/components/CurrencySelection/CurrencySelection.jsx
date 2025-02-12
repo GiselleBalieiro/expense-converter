@@ -6,6 +6,7 @@ const BASE_URL = "https://v6.exchangerate-api.com/v6";
 
 const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency, onConversion }) => {
   const [toCurrency, setToCurrency] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function fetchExchangeRates() {
@@ -21,12 +22,14 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
         if (data.conversion_rates) {
           setExchangeRates(data.conversion_rates);
           setDestinationCurrency(toCurrency);
+          setLoading(false)
         } else {
           throw new Error("Erro ao buscar taxas.");
         }
       } catch (error) {
         console.error("Erro ao buscar taxas de câmbio:", error);
         setExchangeRates({});
+        setLoading(false)
       }
     }
     if (toCurrency) {
@@ -77,7 +80,7 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
         <option value="BRL">Real</option>
         <option value="EUR">Euro</option>
       </select>
-      <button type='submit'>Converter</button>
+      <button type='submit' disabled={loading}>Converter</button>
       </form>   
     </div>
   );
