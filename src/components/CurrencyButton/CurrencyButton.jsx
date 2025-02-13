@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import CurrencySelection from "../CurrencySelection/CurrencySelection";
 import PopUp from "../PopUp/PopUp";
 
-const CurrencyButton = ({  expenses, setExpenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency, onConversion }) => {
+const CurrencyButton = ({  expenses, exchangeRates, setDestinationCurrency, setExchangeRates, fromCurrency, onConversion }) => {
     const [showCurrencySelection, setShowCurrencySelection] = useState (false);
 
     const handleButtonClick = () => {

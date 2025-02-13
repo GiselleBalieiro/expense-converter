@@ -14,11 +14,6 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
         const response = await fetch(`${BASE_URL}/${API_KEY}/latest/${fromCurrency}`);
         const data = await response.json();
 
-        console.log(data)
-        console.log("Moeda selecionada: ", fromCurrency)
-        console.log("fromCurrency:", fromCurrency);
-        console.log("toCurrency:", toCurrency);
-
         if (data.conversion_rates) {
           setExchangeRates(data.conversion_rates);
           setDestinationCurrency(toCurrency);
@@ -27,7 +22,6 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
           throw new Error("Erro ao buscar taxas.");
         }
       } catch (error) {
-        console.error("Erro ao buscar taxas de câmbio:", error);
         setExchangeRates({});
         setLoading(false)
       }
@@ -37,10 +31,6 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
     }
   }, [toCurrency, setExchangeRates, setDestinationCurrency, fromCurrency]);
 
-
-  useEffect(() => {
-    console.log("Taxas de câmbio atualizadas:", exchangeRates);
-  }, [exchangeRates]);
   
 
   const calculateConvertedTotal = () => {
@@ -54,7 +44,6 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
     const convertedExpenses = expenses.map((expense) => {
       if (expense.option === fromCurrency) {
         const convertedValue = (expense.value / fromExchangeRate) * toExchangeRate;
-        console.log(`Convertendo ${expense.value} de ${fromCurrency} para ${toCurrency}: ${convertedValue}`);
         return {
           ...expense,
           convertedValue: convertedValue.toFixed(2),
@@ -63,8 +52,7 @@ const CurrencySelection = ({ expenses, exchangeRates, setDestinationCurrency, se
       }
       return expense;
     });
-
-    console.log("Despesas convertidas:", convertedExpenses);
+    
     onConversion(convertedExpenses);
   };
 
