@@ -25,3 +25,6 @@ dist-ssr
 
 
 .env
+.vite.config.js
+.package-lock.json
+.package.json
