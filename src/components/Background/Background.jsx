@@ -6,7 +6,7 @@ const Background = ({children}) => {
     <div className="background-container">
       <div className="content-container">
         <h1 className="title">
-          Gerenciador de Despesas Internacionais
+          Gestor de Despesas Internacionais
         </h1>
         <p className="description">
           Organize e gerencie suas despesas de maneira eficiente com conversor de moedas.
