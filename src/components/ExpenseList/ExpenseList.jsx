@@ -2,17 +2,27 @@ import React, { useState } from 'react';
 import './ExpenseList.css';
 import CurrencyButton from '../CurrencyButton/CurrencyButton';
 
-const ExpenseList = ({ expenses, setExpenses, exchangeRates, setDestinationCurrency, setExchangeRates, selectedCurrency, onConversion}) => {
+const ExpenseList = ({ expenses, setExpenses, exchangeRates, setDestinationCurrency, setExchangeRates, selectedCurrency}) => {
     const [showCurrencySelection, setShowCurrencySelection] = useState(false);
-    const [convertedExpenses, setConvertedExpenses] = useState([]);
-    const [conversionDone, setConversionDone] = useState(false);
-
     const handleRemove = (indexToRemove) => {
         setExpenses(expenses.filter((_, index) => index !== indexToRemove));
     };
 
     const handleConversion = (convertedExpenses) => {
       setExpenses(convertedExpenses);
+    };
+
+    const formatCurrency = (value, currency) => {
+        switch (currency) {
+            case 'USD':
+                return `$${value}`;
+            case 'EUR':
+                return `€${value}`;
+            case 'BRL':
+                return `R$${value}`;
+            default:
+                return value;
+        }
     };
 
     return (
@@ -32,9 +42,9 @@ const ExpenseList = ({ expenses, setExpenses, exchangeRates, setDestinationCurre
                 {expenses.map((expense, index) => (
                     <tr key={index}>
                         <td>{expense.name}</td>
-                        <td>{expense.value}</td>
+                        <td>{formatCurrency(expense.value, expense.option)}</td>
                         <td>{expense.option}</td>
-                        <td>{expense.convertedValue || '-'}</td>
+                        <td>{expense.convertedValue ? formatCurrency(expense.convertedValue, expense.conversionCurrency) : '-'}</td>
                         <td>{expense.conversionCurrency || '-'}</td>
                         <td className="buttons">
                             <button
