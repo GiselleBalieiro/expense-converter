@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import ExpenseForm from './components/ExpenseForm/ExpenseForm'
 import ExpenseList from './components/ExpenseList/ExpenseList'
 import Button from './components/Button/Button';
